@@ -1,13 +1,15 @@
 import React, { useEffect } from 'react'
 import { View, Text } from 'react-native'
-import { Provider as AuthProvider }  from './src/Context/AuthContext'
+import { Provider as AuthProvider }  from './src/context/AuthContext'
 import firebase from 'firebase'
+import LoginForm from './src/components/LoginForm'
 
 const App = () => {
 
-  /*useEffect(() => {
+  useEffect(() => {
+    console.log("effect loaded")
     if (!firebase.apps.length) {
-      var firebaseConfig = {
+      firebase.initializeApp({
         apiKey: "AIzaSyDjajcr5mi31qsVCdChlvbjmOAweZHIqZs",
         authDomain: "manager-8173f.firebaseapp.com",
         databaseURL: "https://manager-8173f.firebaseio.com",
@@ -16,19 +18,16 @@ const App = () => {
         messagingSenderId: "688239616444",
         appId: "1:688239616444:web:48030298a0bee226b58bb9",
         measurementId: "G-1P3XB97XQB"
-      }
+      })
     }
-    // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
-    firebase.analytics();
-  }, [])*/
+  }, [])
 
   return (
-   <AuthProvider>
+    <AuthProvider>
       <View>
-        <Text>New App</Text>
+        <LoginForm />
       </View>
-   </AuthProvider>
+    </AuthProvider>
   )
 }
 
