@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react'
 import { View, Text } from 'react-native'
+import { createAppContainer } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack'
 import { Provider as AuthProvider }  from './src/context/AuthContext'
 import firebase from 'firebase'
-import LoginForm from './src/components/LoginForm'
+import LoginScreen from './src/screens/LoginScreen'
 
 const App = () => {
 
@@ -22,11 +24,20 @@ const App = () => {
     }
   }, [])
 
+  const navigator = createStackNavigator(
+    {
+      Login: LoginScreen
+    }, {
+      initialRouteName: 'Login',
+      defaultNavigationOptions: {
+        title: 'Please Login'
+      }
+    })
+
+  const App = createAppContainer(navigator)
   return (
     <AuthProvider>
-      <View>
-        <LoginForm />
-      </View>
+      <App />
     </AuthProvider>
   )
 }

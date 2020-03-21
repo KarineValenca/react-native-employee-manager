@@ -1,9 +1,9 @@
 import React, {useState, useContext} from 'react'
 import { Text,  StyleSheet  } from 'react-native'
-import { Button, Card, CardSection, Input, Spinner } from './common'
+import { Button, Card, CardSection, Input, Spinner } from '../components/common'
 import { Context } from '../context/AuthContext'
 
-const LoginForm = () => {
+const LoginScreen = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const { state, signin } = useContext(Context)
@@ -61,4 +61,4 @@ const styles = StyleSheet.create({
 })
 
 
-export default LoginForm
+export default LoginScreen
