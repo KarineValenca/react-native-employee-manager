@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react'
-import { View, Text } from 'react-native'
-import { createAppContainer } from 'react-navigation';
+import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack'
 import { Provider as AuthProvider }  from './src/context/AuthContext'
 import firebase from 'firebase'
 import LoginScreen from './src/screens/LoginScreen'
 import EmployeeScreen from './src/screens/EmployeeScreen'
+import EmployeeCreateScreen from './src/screens/EmployeeCreateScreen'
 import { setNavigator } from './src/navigateRef'
 
 const App = () => {
@@ -26,19 +26,20 @@ const App = () => {
     }
   }, [])
 
-  const navigator = createStackNavigator(
+  const switchNavigator = createSwitchNavigator(
     {
-      Login: LoginScreen,
-      Employee: EmployeeScreen
+      loginFlow: createStackNavigator({
+        Login: LoginScreen,
+      }),
+      mainFlow: createStackNavigator({
+        Employee: EmployeeScreen,
+        EmployeeCreate: EmployeeCreateScreen
+      })
     }, {
-      initialRouteName: 'Login',
-      defaultNavigationOptions: {
-        title: 'Please Login',
-        headerTitleAlign: 'center'
-      }
+      initialRouteName: 'loginFlow',
     })
 
-  const App = createAppContainer(navigator)
+  const App = createAppContainer(switchNavigator)
   return (
     <AuthProvider>
       <App ref={ (navigator) => { setNavigator(navigator) }} />

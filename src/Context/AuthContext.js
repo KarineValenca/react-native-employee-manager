@@ -1,7 +1,6 @@
 import firebase from 'firebase'
 import createDataContext from './createDataContext'
 import { navigate } from '../navigateRef'
-import EmployeeScreen from '../screens/EmployeeScreen'
 
 const authReducer = ( state, action ) => {
     switch(action.type) {
