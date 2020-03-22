@@ -5,6 +5,8 @@ import { createStackNavigator } from 'react-navigation-stack'
 import { Provider as AuthProvider }  from './src/context/AuthContext'
 import firebase from 'firebase'
 import LoginScreen from './src/screens/LoginScreen'
+import EmployeeScreen from './src/screens/EmployeeScreen'
+import { setNavigator } from './src/navigateRef'
 
 const App = () => {
 
@@ -26,18 +28,20 @@ const App = () => {
 
   const navigator = createStackNavigator(
     {
-      Login: LoginScreen
+      Login: LoginScreen,
+      Employee: EmployeeScreen
     }, {
       initialRouteName: 'Login',
       defaultNavigationOptions: {
-        title: 'Please Login'
+        title: 'Please Login',
+        headerTitleAlign: 'center'
       }
     })
 
   const App = createAppContainer(navigator)
   return (
     <AuthProvider>
-      <App />
+      <App ref={ (navigator) => { setNavigator(navigator) }} />
     </AuthProvider>
   )
 }

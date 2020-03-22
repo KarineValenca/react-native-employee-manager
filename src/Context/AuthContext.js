@@ -1,5 +1,7 @@
 import firebase from 'firebase'
 import createDataContext from './createDataContext'
+import { navigate } from '../navigateRef'
+import EmployeeScreen from '../screens/EmployeeScreen'
 
 const authReducer = ( state, action ) => {
     switch(action.type) {
@@ -20,18 +22,21 @@ const signin = (dispatch) => (email, password) => {
             .then(() => {
                 console.log("login completed, clear loading please")
                 dispatch({ type: 'clear_loading' })
+               // navigate('EmployeeScreen')
             })
             .catch(() => {
                 firebase.auth().createUserWithEmailAndPassword(email, password)
                 .then(() => {
                     console.log("signup completed, clear loading please")
                     dispatch({ type: 'clear_loading' })
+                 //   navigate('EmployeeScreen')
                 })
                 .catch(() => {
                     dispatch({ type: 'add_error', payload: "Authentication failed" })
                 })
             })
         dispatch({ type: 'signin'})
+        navigate('Employee')
     } catch (err) {
         dispatch({ type: 'add_error', payload: "Authentication error" })
     }
