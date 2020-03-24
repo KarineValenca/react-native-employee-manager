@@ -14,12 +14,13 @@ const employeeReducer = ( state, action ) => {
     }
 }
 
-const addEmployee = dispatch => (name, phone) => {
+const createEmployee = (dispatch) => (name, phone, shift) => {
+    console.log(name, phone, shift)
     dispatch({ type: 'add_employee'})
 }
 
 export const {Provider, Context } = createDataContext(
     employeeReducer,
-    { addEmployee },
+    { createEmployee },
     { errorMessage: '' } 
 )

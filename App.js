@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack'
 import { Provider as AuthProvider }  from './src/context/AuthContext'
+import { Provider as EmployeeProvider} from './src/context/EmployeeContext'
 import firebase from 'firebase'
 import LoginScreen from './src/screens/LoginScreen'
 import EmployeeScreen from './src/screens/EmployeeScreen'
@@ -42,7 +43,9 @@ const App = () => {
   const App = createAppContainer(switchNavigator)
   return (
     <AuthProvider>
-      <App ref={ (navigator) => { setNavigator(navigator) }} />
+      <EmployeeProvider>
+        <App ref={ (navigator) => { setNavigator(navigator) }} />
+      </EmployeeProvider>
     </AuthProvider>
   )
 }

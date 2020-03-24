@@ -1,9 +1,13 @@
-import React, {useState} from 'react'
+import React, { useState, useContext } from 'react'
 import { Card, CardSection, Input, Button } from '../components/common'
 import { Picker, Text, StyleSheet } from 'react-native'
+import { Context } from '../context/EmployeeContext'
 
 const EmployeeCreateScreen = () => {
-    const [day, setDay] = useState('Monday')
+    const [name, setName] = useState('')
+    const [phone, setPhone] = useState('')
+    const [shift, setShift] = useState('Monday')
+    const { state, createEmployee } = useContext(Context)
     
     return (
         <Card>
@@ -11,6 +15,7 @@ const EmployeeCreateScreen = () => {
                <Input 
                 label="Name"
                 placeholder="Jane"
+                onChangeText={name => setName(name)}
                />
            </CardSection>
                 
@@ -18,6 +23,7 @@ const EmployeeCreateScreen = () => {
                 <Input 
                 label="Phone"
                 placeholder="555-555-555"
+                onChangeText={phone => setPhone(phone)}
                 />
            </CardSection>
 
@@ -25,8 +31,8 @@ const EmployeeCreateScreen = () => {
                 <Text style={styles.pickerTextStyle}>Shift</Text>
                <Picker
                style={{ flex: 1 }}
-               selectedValue={day}
-               onValueChange={itemValue => setDay(itemValue)}
+               selectedValue={shift}
+               onValueChange={itemValue => setShift(itemValue)}
                >
                    <Picker.Item label="Monday" value="Monday" />
                    <Picker.Item label="Tuesday" value="Tuesday" />
@@ -39,7 +45,7 @@ const EmployeeCreateScreen = () => {
            </CardSection>
 
            <CardSection>
-               <Button>
+               <Button onPress={() => createEmployee(name, phone, shift)}>
                    Create
                </Button>
            </CardSection>

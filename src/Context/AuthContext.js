@@ -42,7 +42,7 @@ const signin = (dispatch) => (email, password) => {
 }
 
 
-export const {Provider, Context } = createDataContext(
+export const { Provider, Context } = createDataContext(
     authReducer,
     { signin },
     { isLoading: false, errorMessage: '' } 
