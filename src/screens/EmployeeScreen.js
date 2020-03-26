@@ -1,32 +1,46 @@
+import _ from 'lodash'
 import React, { useContext, useEffect } from 'react'
-import { FlatList, View, Text, Button } from 'react-native'
+import { FlatList, View, Button } from 'react-native'
 import { NavigationActions } from 'react-navigation'
 import { navigate } from '../navigateRef'
 import { Context } from '../context/EmployeeContext'
+import ListItem from '../components/ListItem'
 
 const EmployeeScreen = ({ navigation }) => {
     const { state, fetchEmployees } = useContext(Context)
 
+    const mapStateToObject = state => {
+        const employees = _.map(state, (val, uid) => {
+            return { ...val, uid}
+        })
+        return { employees } 
+    }
+
+    const employees = mapStateToObject(state)
+
     useEffect(() => {
-        console.log("CARREGANDO LISTA")
         fetchEmployees()
-        console.log(state)
+        console.log(employees)
     }, [])
+
 
     return (
         <View>
            <FlatList
-				data={state}
-				renderItem={({ item }) => {
+                data={employees.employees}
+                keyExtractor={employee => employee.uid}
+
+                renderItem={({ item }) => {
                     return(
-                        <Text>Hello</Text>
+                        <ListItem employee={item} />
                     )
                 }}
-				keyExtractor={(employee, index) => index.toString()}
-			/>
+            />
         </View>
     )
 }
+
+
 
 EmployeeScreen.navigationOptions = {
     headerTitle: 'Employees',

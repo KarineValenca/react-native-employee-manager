@@ -33,5 +33,5 @@ const fetchEmployees = (dispatch) => () => {
 export const {Provider, Context } = createDataContext(
     employeeReducer,
     { createEmployee, fetchEmployees },
-    { errorMessage: '' } 
+    { errorMessage: '', uid: '' } 
 )
