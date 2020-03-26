@@ -3,12 +3,14 @@ import { Card, CardSection, Input, Button } from '../components/common'
 import { Picker, Text, StyleSheet } from 'react-native'
 import { Context } from '../context/EmployeeContext'
 
-const EmployeeCreateScreen = () => {
+const EmployeeCreateScreen = ({ navigation }) => {
     const [name, setName] = useState('')
     const [phone, setPhone] = useState('')
     const [shift, setShift] = useState('Monday')
     const { state, createEmployee } = useContext(Context)
-    
+
+    console.log(navigation.state.params)
+
     return (
         <Card>
            <CardSection> 

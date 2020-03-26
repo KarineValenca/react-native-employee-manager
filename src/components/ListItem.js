@@ -1,12 +1,20 @@
 import React from 'react'
-import { Text, StyleSheet } from 'react-native'
+import { Text, StyleSheet, View, TouchableWithoutFeedback } from 'react-native'
 import {CardSection} from './common'
+import { navigate } from '../navigateRef'
 
 const ListItem = ({ employee }) => {
+    const onRowPress = () => {
+        navigate('EmployeeCreate', employee)
+    }
     return (
-        <CardSection>
-            <Text style={styles.titleStyle}>{employee.name}</Text>
-        </CardSection>
+        <TouchableWithoutFeedback onPress={() => onRowPress()}>
+            <View>
+                <CardSection>
+                    <Text style={styles.titleStyle}>{employee.name}</Text>
+                </CardSection>
+                </View>
+        </TouchableWithoutFeedback>
     )
 }
 

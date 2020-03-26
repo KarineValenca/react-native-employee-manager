@@ -9,6 +9,13 @@ import ListItem from '../components/ListItem'
 const EmployeeScreen = ({ navigation }) => {
     const { state, fetchEmployees } = useContext(Context)
 
+    
+
+    useEffect(() => {
+        fetchEmployees()
+    }, [])
+
+
     const mapStateToObject = state => {
         const employees = _.map(state, (val, uid) => {
             return { ...val, uid}
@@ -17,13 +24,6 @@ const EmployeeScreen = ({ navigation }) => {
     }
 
     const employees = mapStateToObject(state)
-
-    useEffect(() => {
-        fetchEmployees()
-        console.log(employees)
-    }, [])
-
-
     return (
         <View>
            <FlatList
