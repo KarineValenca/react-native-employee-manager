@@ -1,14 +1,23 @@
-import React, { useState, useContext } from 'react'
+import _ from 'lodash'
+import React, { useState, useContext, useEffect } from 'react'
 import { View, Text, Picker, StyleSheet  } from 'react-native'
 import { CardSection, Input, Button } from './common'
 import { Context } from '../context/EmployeeContext'
 
-const EmployeeForm = (props) => {
-    console.log(props.employee)
+const EmployeeForm = ({employee}) => {
     const [name, setName] = useState('')
     const [phone, setPhone] = useState('')
     const [shift, setShift] = useState('Monday')
-    const { state, createEmployee } = useContext(Context)
+    const { state, createEmployee, editEmployee } = useContext(Context)
+
+    useEffect(() => {
+        
+        if (employee) {
+            setName(employee.name) 
+            setPhone(employee.phone)
+            setShift(employee.shift)
+        }
+    }, [])
 
     return (
         <View>
@@ -16,6 +25,7 @@ const EmployeeForm = (props) => {
                 <Input 
                     label="Name"
                     placeholder="Jane"
+                    value={name}
                     onChangeText={name => setName(name)}
                 />
             </CardSection>
@@ -24,6 +34,7 @@ const EmployeeForm = (props) => {
                     <Input 
                     label="Phone"
                     placeholder="555-555-555"
+                    value={phone}
                     onChangeText={phone => setPhone(phone)}
                     />
             </CardSection>
@@ -47,15 +58,15 @@ const EmployeeForm = (props) => {
 
            <CardSection>
                 
-                    { 
-                        !props.employee
-                        ?<Button onPress={() => {createEmployee(name, phone, shift)}}>
-                            Create
-                        </Button>
-                        : <Button onPress={() => {createEmployee(name, phone, shift)}}>
-                            Save Changes
-                        </Button>
-                    }
+            { 
+                !employee
+                ?<Button onPress={() => {createEmployee(name, phone, shift)}}>
+                    Create
+                </Button>
+                : <Button onPress={() => {editEmployee(name, phone, shift)}}>
+                    Save Changes
+                </Button>
+            }
                     
                 
             </CardSection>
