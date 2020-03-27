@@ -9,8 +9,6 @@ import ListItem from '../components/ListItem'
 const EmployeeScreen = ({ navigation }) => {
     const { state, fetchEmployees } = useContext(Context)
 
-    
-
     useEffect(() => {
         fetchEmployees()
     }, [])
