@@ -38,8 +38,6 @@ const EmployeeScreen = ({ navigation }) => {
     )
 }
 
-
-
 EmployeeScreen.navigationOptions = {
     headerTitle: 'Employees',
     headerRight: () => (

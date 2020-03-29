@@ -4,8 +4,6 @@ import { navigate } from '../navigateRef'
 
 const employeeReducer = ( state, action ) => {
     switch(action.type) {
-        case 'add_employee':
-            return { ...state }
         case 'fetch_employee_success':
             return action.payload
         case 'add_error':
@@ -15,11 +13,18 @@ const employeeReducer = ( state, action ) => {
     }
 }
 
-const createEmployee = (dispatch) => (name, phone, shift) => {
+const createEmployee = () => (name, phone, shift) => {
     const { currentUser } = firebase.auth()
-    firebase.database().ref(`/users/${currentUser.uid}/employees`).push({ name, phone, shift })
-    dispatch({ type: 'add_employee' })
-    navigate('Employee')
+    firebase.database().ref(`/users/${currentUser.uid}/employees`)
+    .push({ name, phone, shift })
+    .then(navigate('Employee'))
+}
+
+const editEmployee = () => (name, phone, shift, uid) => {
+    const { currentUser } = firebase.auth()
+    firebase.database().ref(`/users/${currentUser.uid}/employees/${uid}`)
+    .set({ name, phone, shift})
+    .then(navigate('Employee'))
 }
 
 const fetchEmployees = (dispatch) => () => {
@@ -32,6 +37,6 @@ const fetchEmployees = (dispatch) => () => {
 
 export const {Provider, Context } = createDataContext(
     employeeReducer,
-    { createEmployee, fetchEmployees },
+    { createEmployee, editEmployee, fetchEmployees },
     { errorMessage: '', uid: '' } 
 )

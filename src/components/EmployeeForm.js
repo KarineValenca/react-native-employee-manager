@@ -8,6 +8,7 @@ const EmployeeForm = ({employee}) => {
     const [name, setName] = useState('')
     const [phone, setPhone] = useState('')
     const [shift, setShift] = useState('Monday')
+    const [uid, setUid] = useState('')
     const { state, createEmployee, editEmployee } = useContext(Context)
 
     useEffect(() => {
@@ -16,6 +17,7 @@ const EmployeeForm = ({employee}) => {
             setName(employee.name) 
             setPhone(employee.phone)
             setShift(employee.shift)
+            setUid(employee.uid)
         }
     }, [])
 
@@ -63,7 +65,7 @@ const EmployeeForm = ({employee}) => {
                 ?<Button onPress={() => {createEmployee(name, phone, shift)}}>
                     Create
                 </Button>
-                : <Button onPress={() => {editEmployee(name, phone, shift)}}>
+                : <Button onPress={() => {editEmployee(name, phone, shift, uid)}}>
                     Save Changes
                 </Button>
             }
