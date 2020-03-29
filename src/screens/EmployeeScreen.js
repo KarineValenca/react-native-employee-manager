@@ -10,6 +10,7 @@ const EmployeeScreen = ({ navigation }) => {
     const { state, fetchEmployees } = useContext(Context)
 
     useEffect(() => {
+        console.log('Called fucking employee screen')
         fetchEmployees()
     }, [])
 
