@@ -35,8 +35,15 @@ const fetchEmployees = (dispatch) => () => {
         })
 }
 
+const deleteEmployee = () => (uid) => {
+    const { currentUser } = firebase.auth()
+
+    firebase.database().ref(`/users/${currentUser.uid}/employees/${uid}`)
+    .remove()
+    .then(navigate('Employee'))
+}
 export const {Provider, Context } = createDataContext(
     employeeReducer,
-    { createEmployee, editEmployee, fetchEmployees },
+    { createEmployee, editEmployee, fetchEmployees, deleteEmployee },
     { errorMessage: '', uid: '' } 
 )

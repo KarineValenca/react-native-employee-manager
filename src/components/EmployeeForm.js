@@ -11,7 +11,7 @@ const EmployeeForm = ({employee}) => {
     const [shift, setShift] = useState('Monday')
     const [uid, setUid] = useState('')
     const [showModal, setShowModal] = useState(false)
-    const { state, createEmployee, editEmployee } = useContext(Context)
+    const { state, createEmployee, editEmployee, deleteEmployee } = useContext(Context)
 
     useEffect(() => {
         
@@ -26,6 +26,10 @@ const EmployeeForm = ({employee}) => {
 
     const onTextPress = (phone, shift) => {
         Communications.text(phone, `Your upcoming shift is on ${shift}`)
+    }
+
+    const onAcceptFire = (uuid) => {
+        deleteEmployee(uid)
     }
 
     return (
@@ -88,13 +92,15 @@ const EmployeeForm = ({employee}) => {
                     </CardSection>
 
                     <CardSection>
-                        <Button onPress={() => setShowModal(!showModal)}>
+                        <Button onPress={() => setShowModal(true)}>
                             Fire Employee
                         </Button>
                     </CardSection>
 
                     <Confirm
                         visible={showModal}
+                        onDecline={() => setShowModal(false)}
+                        onAccept={()=> onAcceptFire(uid)}
                     >
                         Are you sure you want to delete this?
                     </Confirm>
